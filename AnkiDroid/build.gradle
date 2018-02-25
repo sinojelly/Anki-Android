@@ -15,13 +15,19 @@ android {
     lintOptions {
         abortOnError false
         disable 'TypographyEllipsis'
+        disable 'MissingTranslation'
+        disable 'ExtraTranslation'
     }
     signingConfigs {
         release {
-            storeFile file("${homePath}/src/android-keystore")
-            keyAlias "nrkeystorealias"
-            storePassword System.getenv("KSTOREPWD")
-            keyPassword System.getenv("KEYPWD")
+            Properties properties = new Properties()
+            InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream() ;
+            properties.load( inputStream )
+
+            storeFile file(properties.getProperty('key.dir') + "/android-keystore")
+            keyAlias "keystorealias"
+            storePassword properties.getProperty('key.storepwd')
+            keyPassword properties.getProperty('key.pwd')
         }
     }
     buildTypes {
@@ -36,6 +42,28 @@ android {
     dexOptions {
         // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
         preDexLibraries = preDexEnabled && !travisBuild
+    }
+
+    flavorDimensions "user"
+    productFlavors {
+        jelly {
+            applicationIdSuffix ".jelly"
+            dimension "user"
+            buildConfigField "String", "DIR_SUFFIX", "\"Jelly\""
+            resValue "string", "app_name_replaced", "AnkiDroidJelly"
+        }
+        jelly2 {
+            applicationIdSuffix ".jelly2"
+            dimension "user"
+            buildConfigField "String", "DIR_SUFFIX", "\"Jelly2\""
+            resValue "string", "app_name_replaced", "AnkiDroidJelly2"
+        }
+        defaults {
+            applicationIdSuffix ""
+            dimension "user"
+            buildConfigField "String", "DIR_SUFFIX", "\"\""
+            resValue "string", "app_name_replaced", "AnkiDroid"
+        }
     }
 }
 
