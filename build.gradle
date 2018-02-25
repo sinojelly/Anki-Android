@@ -2,9 +2,12 @@
 
 buildscript {
     repositories {
-        jcenter()
+        //jcenter()
         maven {
-            url 'https://maven.google.com/'
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        maven {
+            url 'https://dl.google.com/dl/android/maven2/'
             name 'Google'
         }
     }
@@ -18,9 +21,12 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+        //jcenter()
         maven {
-            url 'https://maven.google.com/'
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        maven {
+            url 'https://dl.google.com/dl/android/maven2/'
             name 'Google'
         }
     }
