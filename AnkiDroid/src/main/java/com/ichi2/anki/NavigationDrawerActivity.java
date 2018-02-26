@@ -323,12 +323,14 @@ public class NavigationDrawerActivity extends AnkiActivity implements Navigation
 
     protected void showBackIcon() {
         if (mDrawerToggle != null) {
-            mDrawerToggle.setDrawerIndicatorEnabled(false);
+//            mDrawerToggle.setDrawerIndicatorEnabled(false);
+            mDrawerToggle.setDrawerIndicatorEnabled(true);
         }
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        mNavButtonGoesBack = true;
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
+//        mNavButtonGoesBack = true;
+        mNavButtonGoesBack = false;
     }
 
     public boolean isDrawerOpen() {
